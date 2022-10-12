@@ -1,5 +1,10 @@
 package nn
 
+import (
+	"fmt"
+	"math"
+)
+
 func SetHiddenNeurons(p *Perceptron) {
 	x := len(p.Weights)
 	var previusLayerNeurons []float64
@@ -28,10 +33,11 @@ func SetHiddenNeurons(p *Perceptron) {
 			}
 			nN[k] = z
 		}
-
-		/* y := p.HiddenNeurons[i].HiddenLayerNeurons */
+		
 		for i := 0; i < len(nN); i++ {
+			fmt.Println("Скрытый нейрон до РеЛУ: ", nN[i])
 			nN[i] = ReLU(nN[i])
+			fmt.Println("Скрытый нейрон после РеЛУ: ", nN[i])
 		}
 
 		if !isLastLayer {
@@ -42,3 +48,17 @@ func SetHiddenNeurons(p *Perceptron) {
 		isLastLayer = false
 	}
 }
+
+func Round(x float64, prec int) float64 {
+	var rounder float64
+	pow := math.Pow(10, float64(prec))
+	intermed := x * pow
+	_, frac := math.Modf(intermed)
+	if frac >= 0.5 {
+		rounder = math.Ceil(intermed)
+	} else {
+		rounder = math.Floor(intermed)
+	}
+	return rounder / pow
+}
+

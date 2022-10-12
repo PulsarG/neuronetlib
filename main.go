@@ -2,42 +2,54 @@ package main
 
 import (
 	/* "fmt" */
-	"fmt"
 	/* "math/rand" */
-	/* "neuronetbinar/nn" */
+	"fmt"
 	"neuronetbinar/nn"
 	/* "time" */)
 
-var InputNeurons []float64
+/*
+	var InputNeurons []float64
 
 var HiddenLayerNeurons []float64
 
 var ResultNeuron []float64
 
 var LearningRate float64
+*/
+var TestInput []float64
 var TestResult []float64
 
 func main() {
-	InputNeurons = []float64{1.0, 1.0}
+	TestInput = []float64{1.0, 1.0}
 	TestResult = []float64{1.0, 1.0}
+
+	NewNet := nn.NewCreater()
+	NewNet.CreatePerceptron()
+
+	NewTest := nn.NewTestData(TestInput, TestResult)
+	qwer := NewTest.TestResult[0] - NewNet.GetResult()
+	fmt.Println("Ошибка !^2: ", qwer*qwer)
+	/* var a float64
+	var b float64
+	*/
+	/* fmt.Println("Введите первый входной нейрон: ")
+	fmt.Scanf("%f\n", &a)
+	fmt.Println("Введите второй входной нейрон: ")
+	fmt.Scanf("%f\n", &b)
+	InputNeurons = []float64{a, b} */
 	/* LearningRate = 0.1
 	epoch := 1000 */
-	
 
-	NewNet := nn.NewPerceptron(InputNeurons, 2)
-	NewNet.CreateHiddenNeuronsLayer(3, 2)
-	NewNet.CreateHiddenNeuronsLayer(3, 3)
-	NewNet.CreateLastWeights()
-	nn.SetHiddenNeurons(NewNet)
+	// Создание и реализация Перцептрона
 
+	/* NewNet := nn.NewPerceptron(InputNeurons, 2) // Созздание рамок Перцептрона - входные данные и количество выходов
 
+	NewNet.CreateHiddenNeuronsLayer(3, 2) // Создание скрытого слоя (обязательно минимум 1 скрытый слой)
+	// (принимает количество нейронов своего слоя и количество нейронов предыдущего слоя)
+	// Так же создаются веса между ними
+	NewNet.CreateHiddenNeuronsLayer(3, 3) // Повторить для каждого нового слоя
 
-	fmt.Println("Входы: ", NewNet.InputNeurons)
-	for i := 0; i < len(NewNet.HiddenNeurons); i++ {
-		fmt.Println("Скрытый слой: ", i, NewNet.HiddenNeurons[i])
-	}
-	for i := 0; i < len(NewNet.Weights); i++ {
-		fmt.Println("Веса: ", i, NewNet.Weights[i])
-	}
-	fmt.Println("Выход: ", NewNet.ResultNeurons)
+	NewNet.CreateLastWeights()  // Создание последних весов к выходным нейронам
+	nn.SetHiddenNeurons(NewNet) // Реализация Перцептрона. Заполнение скрытых нейронов и нейронов выхода.
+	*/
 }
